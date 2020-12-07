@@ -11,6 +11,7 @@
         "php": "^7.2.5|^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "2.7",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5"
@@ -30,7 +31,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "google/apiclient-services": [
+            "Drive",
+            "YouTube"
+        ]        
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +43,8 @@
         },
         "classmap": [
             "database/seeds",
-            "database/factories"
+            "database/factories",
+            "vendor/google/apiclient/src/Google"
         ]
     },
     "autoload-dev": {
@@ -58,6 +64,7 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "post-update-cmd": "Google\\Task\\Composer::cleanup"
     }
 }
