@@ -3,28 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 
 class YouTubeController extends Controller
 {
     public function search(Request $request)
     {
 
-        $text = $request->text;
-        $DEVELOPER_KEY = 'AIzaSyAB98PzZIopyuAbdNR2vMEBw5il0SicTUY';
-        $client = new \Google_Client();
-        $client->setDeveloperKey($DEVELOPER_KEY);
-        $youtube = new \Google_Service_YouTube($client);
-        $searchResponse = $youtube->search->listSearch('id,snippet', array(
-            'q' => $text,
-            'maxResults' => "20",
-        ));
-
-        $results = $searchResponse->items;
-
+        $text = urlencode($request->text);
+        $DEVELOPER_KEY = env("YOUTUBE_API_KEY") ;
+        $YOUTUBE_API_URL = env("YOUTUBE_API_URL") ;
+        $maxResults = "20";
+        $api_url = $YOUTUBE_API_URL . "search?part=snippet&maxResults=".$maxResults."&q=".$text ."&key=".$DEVELOPER_KEY;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $results = json_decode($response)->items;
         $view = view("results", ["results" => $results])->render();
 
         return response()->json(['html' => $view]);
     }
+
 }

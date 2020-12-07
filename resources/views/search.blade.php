@@ -32,7 +32,7 @@
                             <i class="fas fa-search h4 text-body"></i>
                         </div>
                         <!--end of col-->
-                        <div class="col">
+                        <div class="col mr-1">
                             <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search" id="tbxSearch">
                         </div>
                         <!--end of col-->

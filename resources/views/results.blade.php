@@ -3,15 +3,18 @@
 
 @foreach($results as $data)
 
-<li class="col-lg-3 col-sm-4 col-xs-6">
+<li class="col-lg-6 col-sm-6 col-xs-6">
     <a href="https://youtu.be/{{$data->id->videoId}}" title="{{$data->snippet->title}}">
-        <img src="{{$data->snippet->thumbnails->default->url}}" alt="Barca" class="img-responsive" />
-        <h2>{{$data->snippet->title}}</h2>
-        <span class="glyphicon glyphicon-play-circle"></span>
-        <span class="duration">03:15</span>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{$data->snippet->thumbnails->default->url}}" alt="Barca" class="img-responsive" height="130px"/>            
+        </div>    
+        <div class="col-md-8">
+            <h2>{{$data->snippet->title}}</h2>
+        </div>                
+    </div>                    
     </a>
 </li>
-
 @endforeach 
 
 @if(count($results) == 0)
