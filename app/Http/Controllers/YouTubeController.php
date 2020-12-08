@@ -25,8 +25,6 @@ class YouTubeController extends Controller
         curl_close($ch);
         $results = json_decode($response)->items;
         $view = view("results", ["results" => $results])->render();
-
         return response()->json(['html' => $view]);
     }
-
 }

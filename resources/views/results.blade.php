@@ -2,7 +2,7 @@
 
 
 @foreach($results as $data)
-
+@if($data->id->kind == "youtube#video")
 <li class="col-lg-6 col-sm-6 col-xs-6">
     <a href="https://youtu.be/{{$data->id->videoId}}" title="{{$data->snippet->title}}">
     <div class="row">
@@ -15,6 +15,7 @@
     </div>                    
     </a>
 </li>
+@endif
 @endforeach 
 
 @if(count($results) == 0)
